@@ -51,9 +51,10 @@ const ListCard = ({appointmentsData, self, ...props}) => {
                   name: `Appointment with: Dr. ${
                     appointment.doctor && appointment.doctor.name
                   }`,
-                  time: 'Sunday, May 15th at 8:00 PM',
+                  time: `${appointment.detail}`,
                   address: `Email: ${appointment.doctor.email}`,
                   detail: `Detail: ${appointment.doctor.phone} `,
+                  // detail: `Detail: ${appointment.doctor.phone} `,
                   tag: appointment.doctor && appointment.doctor.domain,
                 }}
               />

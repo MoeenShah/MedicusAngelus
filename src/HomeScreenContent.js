@@ -267,7 +267,7 @@ const HomeScreenContent = ({
                     appointmentsData[0] &&
                     appointmentsData[0].doctor.name
                   }`,
-                  time: 'Sunday, May 15th at 8:00 PM',
+                  time: `${appointmentsData[0] && appointmentsData[0].detail}`,
                   address: `Email: ${
                     appointmentsData[0] && appointmentsData[0].doctor.email
                   }`,
