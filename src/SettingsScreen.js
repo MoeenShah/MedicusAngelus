@@ -1,74 +1,71 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Linking,
-  Dimensions,
-  ScrollView,
+import React from 'react';
+import {StyleSheet, Text, View, TextInput, Dimensions ,
+  Button,
   TouchableOpacity,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Fontisto';
-import {connect} from 'react-redux';
-import {getUserByToken} from './actions/common';
+  
+  Platform,
+  
+  ScrollView,
+  StatusBar,
+  ToastAndroid,} from 'react-native';
 import BackgroundHeader from './component/BackgroundHeader';
-import BottomTab from '../src/component/BottomTab';
-import SearchScreen from './SearchScreen';
-import EmergencyScreen from './EmergencyScreen';
-import HomeScreenContent from './HomeScreenContent';
-import AppointmentScreen from './AppointmentScreen';
-import ProfileScreen from './ProfileScreen';
+import * as Animatable from 'react-native-animatable';
+import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
-
-const HomeScreen = ({userData, ...props}) => {
-  const [tab, setTab] = useState(0);
-  useEffect(() => {
-    props
-      .getUserByToken()
-      .then((res) => {})
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+const Header = () => {
   return (
-    <View style={styles.container}>
-      <BackgroundHeader style={styles.bg} />
-      <ScrollView style={styles.scrollView}>
-        {tab == 0 && <HomeScreenContent navigation={props.navigation} />}
-        {tab == 1 && <SearchScreen navigation={props.navigation} />}
-        {tab == 2 && <EmergencyScreen navigation={props.navigation} />}
-        {tab == 3 && <AppointmentScreen navigation={props.navigation} />}
-        {tab == 4 && <ProfileScreen navigation={props.navigation} />}
-      </ScrollView>
-      <BottomTab selected={tab} onSelected={(index) => setTab(index)} />
+    <View style={styles.header}>
+      <View style={styles.headerBody}>
+        {/* <Entypo name="chevron-left" size={32} color="#fff" /> */}
+        <Text style={styles.headerText}>Settings</Text>
+      </View>
     </View>
   );
 };
 
-const mapStateToProps = ({common}) => {
-  return {
-    userData: common.userData,
-  };
+const SettingsScreen = (props) => {
+  return (
+    <View style={styles.container}>
+      <BackgroundHeader style={styles.bg} />
+      <Header/>
+      
+      {/* <Text style={styles.text}>Edit Info Screen</Text> */}
+    </View>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getUserByToken: (data) => dispatch(getUserByToken(data)),
-});
-
-// eslint-disable-next-line prettier/prettier
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default SettingsScreen;
 
 const styles = StyleSheet.create({
-  rating: {
-    flexDirection: 'row',
-    marginTop: 5,
-  },
   bg: {
     position: 'absolute',
     width: Dimensions.get('window').width,
     height: 250,
+  },
+  header: {
+    marginTop: 0,
+    padding: 15,
+  },
+  headerText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  headerRightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {marginLeft: 12, transform: [{rotate: '-90deg'}]},
+  headerBody: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rating: {
+    flexDirection: 'row',
+    marginTop: 5,
   },
   tag: {
     color: '#2E86C1',
@@ -87,6 +84,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    padding: 5,
   },
   cardBottomTitle: {
     fontSize: 14,
@@ -110,12 +108,13 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#fff',
     marginTop: 15,
-    borderRadius: 10,
+    marginBottom: 15,
+    borderRadius: 35,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    // elevation: 5
+    elevation: 5,
   },
   cardBodyTop: {
     flexDirection: 'row',
@@ -126,8 +125,9 @@ const styles = StyleSheet.create({
   },
   cardName: {
     color: '#2E86C1',
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   cardTime: {
     color: '#2E86C1',
@@ -142,10 +142,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   cardAvatar: {
-    height: 80,
-    width: 80,
+    marginLeft: Dimensions.get('window').width / 3.1,
+    // marginRight:Dimensions.get('window').height,
+    height: 100,
+    width: 100,
     backgroundColor: 'gray',
-    borderRadius: 60,
+    borderRadius: 35,
   },
   cardHeaderContaner: {
     flexDirection: 'row',
@@ -176,7 +178,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     marginTop: 20,
-    elevation: 5,
   },
   faceText: {
     fontSize: 16,
@@ -206,21 +207,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20,
   },
-  // btnGradient: {
-  //   padding: 10,
-  //   borderRadius: 40,
-  // },
   btnGradient: {
     padding: 10,
     borderRadius: 40,
-    marginLeft: 15,
-    marginRight: 15,
-    marginTop: -10,
-    elevation: 8,
   },
   btnBookText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  trademark: {
+    textAlign: 'center',
   },
 });

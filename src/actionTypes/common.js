@@ -1,0 +1,6 @@
+export const LOGIN = 'LOGIN';
+export const SIGNUP = 'SIGNUP';
+export const GET_USER_BY_TOKEN = 'GET_USER_BY_TOKEN';
+export const GET_APPOINTMENTS = 'GET_APPOINTMENTS';
+export const DELETE_APPOINTMENT = 'DELETE_APPOINTMENT';
+export const SEARCH_DOCTOR = 'SEARCH_DOCTOR';

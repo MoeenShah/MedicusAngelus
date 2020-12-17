@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
@@ -7,43 +7,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MapView, {Marker} from 'react-native-maps';
 import LinearGradient from 'react-native-linear-gradient';
-import {CardHome} from './HomeScreen';
-const Header = () => {
-  return (
-    <View style={styles.header}>
-      
-      <View style={styles.headerBody}>
-        {/* <Entypo name="chevron-left" size={32} color="#fff" /> */}
-        <Text style={styles.headerText}>Search</Text>
-        <View style={styles.headerRightContainer}>
-          <Entypo name="map" size={25} color="#fff" />
-          <Octicons
-            name="settings"
-            size={25}
-            color="#fff"
-            style={styles.icon}
-          />
-        </View>
-      </View>
-      <View style={styles.groupInputs}>
-        <View style={styles.wrapperInput}>
-          <AntDesign name="search1" size={18} color="gray" />
-          <TextInput style={styles.inputText} value="" 
-          placeholder="Name"/>
-        </View>
-        <View style={styles.wrapperInput}>
-          <FontAwesome5 name="briefcase-medical" size={18} color="gray" />
-          <TextInput
-            style={[styles.inputText, {color: '#2E86C1'}]}
-            value=""
-            placeholder="Category"
-          />
-          
-        </View>
-      </View>
-    </View>
-  );
-};
+import {CardHome} from './HomeScreenContent';
+import SearchHeader from './SearchHeader';
+import {connect} from 'react-redux';
+import {searchDoctor} from './actions/common';
 
 const Map = () => {
   return (
@@ -96,52 +63,55 @@ const Map = () => {
   );
 };
 
-const ListCard = () => {
+const ListCard = ({doctorsData, ...props}) => {
+  console.log(doctorsData, 'saasasasassa');
   return (
     <View>
-      <CardHome
-        noHeader
-        // noFooter
-        // book
-        info={{
-          name: 'Search Result 1',
-          time: 'Sunday, May 15th at 8:00 PM',
-          address: 'Search Address 1',
-          detail: 'Search Detail 1',
-          islike: true,
-          rating: 4,
-          tag: 'Heart Specialist',
-        }}
-      />
-      <CardHome
-        noHeader
-        // noFooter
-        // book
-        info={{
-          name: 'Search Result 2',
-          time: 'Sunday, May 15th at 8:00 PM',
-          address: 'Search Address 2',
-          detail: 'Search Detail 2',
-          islike: false,
-          rating: 4,
-          tag: 'ENT',
-        }}
-      />
+      {doctorsData &&
+        doctorsData.length > 0 &&
+        doctorsData.map((doctor) => {
+          return (
+            <CardHome
+              noHeader
+              book
+              noFooter
+              info={{
+                name: `Dr. ${doctor.name}`,
+                time: `Contact: ${doctor.phone}`,
+                address: `Email: ${doctor.email}`,
+                detail: `Type: ${doctor.type}`,
+                tag: doctor.domain,
+                doctorId: doctor._id,
+              }}
+            />
+          );
+        })}
     </View>
   );
 };
 
-const SearchScreen = () => {
+const SearchScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Header />
+      <SearchHeader />
       <Map />
-      <ListCard />
+      <ListCard doctorsData={props.doctorsData} />
     </View>
   );
 };
 
-export default SearchScreen;
+const mapStateToProps = ({common}) => {
+  return {
+    doctorsData: common.doctorsData,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  // searchDoctor: (data) => dispatch(searchDoctor(data)),
+});
+
+// eslint-disable-next-line prettier/prettier
+export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
 
 const styles = StyleSheet.create({
   header: {

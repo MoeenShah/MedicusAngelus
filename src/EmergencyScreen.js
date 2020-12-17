@@ -1,16 +1,25 @@
-import React from 'react';
-import {StyleSheet, Text, View, TextInput, Dimensions, TouchableOpacity, ToastAndroid} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  Dimensions,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MapView, {Marker} from 'react-native-maps';
 import LinearGradient from 'react-native-linear-gradient';
-const onPressEmergency = () => ToastAndroid.show("Emergency!", ToastAndroid.SHORT);
+const onPressEmergency = () =>
+  ToastAndroid.show('Emergency!', ToastAndroid.SHORT);
 const Header = () => {
   return (
     <View style={styles.header}>
-      
       <View style={styles.headerBody}>
-      {/* <Entypo name="chevron-left" size={32} color="#fff" /> */}
+        {/* <Entypo name="chevron-left" size={32} color="#fff" /> */}
         <Text style={styles.headerText}>Emergency</Text>
       </View>
     </View>
@@ -19,7 +28,6 @@ const Header = () => {
 
 const Map = () => {
   return (
-    <View>
       <MapView
         style={styles.mapview}
         initialRegion={{
@@ -28,7 +36,6 @@ const Map = () => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
-      
         <Marker
           coordinate={{
             latitude: 33.651718,
@@ -37,14 +44,12 @@ const Map = () => {
             longitudeDelta: 0.0421,
             // onPress = {onPressEmergency}
           }}>
-      
           <View
             style={{
               backgroundColor: '#2E86C1',
               padding: 5,
               borderRadius: 40,
             }}>
-              
             <View
               style={{
                 backgroundColor: '#356383',
@@ -58,27 +63,36 @@ const Map = () => {
                 shadowOpacity: 1,
                 shadowRadius: 20,
               }}>
-                <LinearGradient
-                  style={styles.marker}
-                  colors={['#2E86C1', '#2E86C1', '#2E86C1']}>
-                  <FontAwesome5 name="user-alt" color="#fff" />
-                </LinearGradient>
+              <LinearGradient
+                style={styles.marker}
+                colors={['#2E86C1', '#2E86C1', '#2E86C1']}>
+                <FontAwesome5 name="user-alt" color="#fff" />
+              </LinearGradient>
             </View>
-            
           </View>
-          
         </Marker>
-        
       </MapView>
-    </View>
+   
   );
 };
 
 const EmergencyScreen = () => {
+  // const [latitude, setLatitude] = useState(0);
+  // const [longitude, setLongitude] = useState(0);
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition(position => {
+  //     setLatitude: position.coords.latitude;
+  //     setLongitude: position.coords.longitude;
+  //   })
+  //   // Update the document title using the browser API
+  //   ;
+  // });
   return (
     <View style={styles.container}>
       <Header />
+      
       <Map />
+      
     </View>
   );
 };
@@ -104,11 +118,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    
   },
   mapview: {
     width: Dimensions.get('window').width,
-    height:Dimensions.get('window').height,
+    height: Dimensions.get('window').height,
   },
   marker: {
     backgroundColor: '#2E86C1',
@@ -116,4 +129,5 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
   },
+
 });

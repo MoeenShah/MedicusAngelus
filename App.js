@@ -7,32 +7,34 @@ import {
   StatusBar,
   Dimensions,
 } from 'react-native';
-import BottomTab from './src/component/BottomTab';
-import BackgroundHeader from './src/component/BackgroundHeader';
-import HomeScreen from './src/HomeScreen';
-import SearchScreen from './src/SearchScreen';
-import EmergencyScreen from './src/EmergencyScreen';
-import AppointmentScreen from './src/AppointmentScreen';
-import ProfileScreen from './src/ProfileScreen';
+import logger from 'redux-logger';
+import {Button, Alert} from 'react-native';
+import Navigator from './src/modules/navigation';
+import {createStore, compose, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {createPromise} from 'redux-promise-middleware';
+import {Provider} from 'react-redux';
+import reducers from './src/reducers';
+
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(
+      thunk,
+      createPromise({
+        promiseTypeSuffixes: ['REQUEST', 'SUCCESS', 'FAILURE'],
+      }),
+      logger,
+    ),
+  ),
+);
 
 const App = () => {
-  const [tab, setTab] = useState(0);
-
   return (
-    <>
-      <StatusBar backgroundColor="#356383" barStyle="dark-content" />
-      <View style={styles.container}>
-        <BackgroundHeader style={[tab == 0 ? styles.bg : styles.bg1]} />
-        <ScrollView style={styles.scrollView}>
-          {tab == 0 && <HomeScreen />}
-          {tab == 1 && <SearchScreen />}
-          {tab == 2 && <EmergencyScreen />}
-          {tab == 3 && <AppointmentScreen />}
-          {tab == 4 && <ProfileScreen />}
-        </ScrollView>
-        <BottomTab selected={tab} onSelected={index => setTab(index)} />
-      </View>
-    </>
+    <Provider store={store}>
+      <StatusBar  backgroundColor = "#2E86C1"/>
+      <Navigator />
+    </Provider>
   );
 };
 
