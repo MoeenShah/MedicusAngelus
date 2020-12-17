@@ -98,7 +98,7 @@ const onPress = () =>
       priority: "high",
       ignoreInForeground: false,
       message: "Please verify your credit card!", // (required)
-      date: new Date(Date.now() + 5 * 1000), // in 60 secs
+      date: new Date(Date.now() + 10 * 1000), // in 60 secs
       allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
     });
   }
