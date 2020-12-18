@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginLeft: 15,
     marginRight: 15,
-    marginTop: -10,
+    marginTop: 0,
     elevation: 8,
   },
   btnGradientDelete: {

@@ -63,8 +63,10 @@ const Map = () => {
   );
 };
 
-const ListCard = ({doctorsData, ...props}) => {
+const ListCard = ({doctorsData, detailsData,  ...props}) => {
   console.log(doctorsData, 'saasasasassa');
+  // console.log(detailsData, 'PLEASEEEE');
+
   return (
     <View>
       {doctorsData &&
@@ -75,6 +77,7 @@ const ListCard = ({doctorsData, ...props}) => {
               noHeader
               book
               noFooter
+              details ={detailsData}
               info={{
                 name: `Dr. ${doctor.name}`,
                 time: `Contact: ${doctor.phone}`,
@@ -91,11 +94,24 @@ const ListCard = ({doctorsData, ...props}) => {
 };
 
 const SearchScreen = (props) => {
+  const [detailQuery, setDetailQuery] = useState("");
+  // console.log(detailQuery);
   return (
     <View style={styles.container}>
       <SearchHeader />
       <Map />
-      <ListCard doctorsData={props.doctorsData} />
+      <View style={styles.wrapperInput1}>
+      <AntDesign name="infocirlce" size={18} color="gray" />
+          <TextInput
+            style={styles.inputText1}
+            value={detailQuery}
+            onChangeText={(value) => {
+              setDetailQuery(value);
+            }}
+            placeholder="Details"
+          />
+        </View>
+      <ListCard doctorsData={props.doctorsData} detailsData={detailQuery} />
     </View>
   );
 };
@@ -137,15 +153,18 @@ const styles = StyleSheet.create({
     flex: 1,
     // padding: 15,
   },
-  wrapperInput: {
+  wrapperInput1: {
     flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
     paddingHorizontal: 10,
     borderRadius: 8,
-    marginTop: 10,
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    elevation: 5
   },
-  inputText: {
+  inputText1: {
     padding: 10,
     flex: 1,
   },
@@ -158,5 +177,17 @@ const styles = StyleSheet.create({
     padding: 10,
 
     borderRadius: 20,
+  },
+  wrapperInput: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginTop: 10,
+  },
+  inputText: {
+    padding: 10,
+    flex: 1,
   },
 });

@@ -19,7 +19,7 @@ import {connect} from 'react-redux';
 import {post, get, deleteRequest, put} from './modules/requests';
 import {searchDoctor, getAppointments, getUserByToken} from './actions/common';
 import PushNotification from "react-native-push-notification";
-
+var detailsAppointment = "";
 
 PushNotification.createChannel(
   {
@@ -103,7 +103,8 @@ const onPress = () =>
     });
   }
 
-export const CardHome = ({title, info, noHeader, noFooter, book, onPress}) => {
+export const CardHome = ({title, info, noHeader, noFooter, book, onPress, details, ...props}) => {
+  console.log(details)
   return (
     <View style={styles.cardContainer}>
       {!noHeader && (
@@ -112,6 +113,12 @@ export const CardHome = ({title, info, noHeader, noFooter, book, onPress}) => {
           <Text style={styles.cardMore}>See All</Text>
         </View>
       )}
+      {
+        // <View style={styles.cardHeaderContaner}>
+        //   <Text style={styles.cardHeading}>{title}</Text>
+        //   <Text style={styles.cardMore}>See All</Text>
+        // </View>
+      }
       <View style={styles.cardBody}>
         <View style={styles.cardBodyTop}>
           <Image
@@ -140,7 +147,7 @@ export const CardHome = ({title, info, noHeader, noFooter, book, onPress}) => {
               <View style={styles.buttonBooks}>
                 <TouchableOpacity
                   onPress={() => {
-                    post('/appointments', {doctor: info.doctorId}).then((res) =>
+                    post('/appointments', {doctor: info.doctorId, detail: details}).then((res) =>
                       ToastAndroid.show(
                         'Appointment Booked!',
                         ToastAndroid.LONG,
@@ -383,7 +390,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    // elevation: 5
+    elevation: 5
   },
   cardBodyTop: {
     flexDirection: 'row',
@@ -483,7 +490,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginLeft: 15,
     marginRight: 15,
-    marginTop: -10,
+    marginTop: 0,
     elevation: 8,
   },
   btnBookText: {

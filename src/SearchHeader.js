@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 8,
     marginTop: 10,
+    elevation: 5
   },
   inputText: {
     padding: 10,
