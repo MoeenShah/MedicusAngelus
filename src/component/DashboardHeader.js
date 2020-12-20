@@ -32,20 +32,7 @@ const DashboardHeader = ({ navigation }) => {
   return (
     <ParentContainer>
       <View style={{ width: wp(70), justifyContent: 'center', alignItems: 'center' }}>
-        <Image
-          style={{ height: 50, width: 200, resizeMode: 'contain' }}
-          source={require('../assets/images/logo.png')}
-        />
-      </View>
-      <View style={{ flexDirection: 'row', borderColor: 'red', borderWidth: 0, justifyContent: 'space-around', alignItems: 'center', flexGrow: 1, }}>
-        <Image
-          style={{ height: 25, width: 25, resizeMode: 'contain', tintColor: Colors.BLACK }}
-          source={require('../assets/images/cart.png')}
-        />
-        <Image
-          style={{ height: 25, width: 25, resizeMode: 'contain', tintColor: Colors.BLACK }}
-          source={require('../assets/images/profileDefault.png')}
-        />
+
       </View>
       {/* <TouchableOpacity
         activeOpacity={0.7}
