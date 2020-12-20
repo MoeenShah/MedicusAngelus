@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-export const baseUrl = 'http://192.168.100.7:5000/api'; // local
+export const baseUrl = 'https://medicus-web.herokuapp.com/api'; // local
 
 export async function get(url = '') {
   const response = await fetch(`${baseUrl}${url}`, {
